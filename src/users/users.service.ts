@@ -14,4 +14,8 @@ export class UsersService {
   findUserBy(params: Partial<Pick<UserEntity, 'id' | 'username'>>) {
     return this.model.findOneBy(params);
   }
+
+  registerUser(user: Partial<UserEntity>) {
+    return this.model.insert(user);
+  }
 }

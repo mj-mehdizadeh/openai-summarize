@@ -14,7 +14,7 @@ This is a test application built with **Nest.js** that allows users to upload do
     - **Register** a new user.
     - **Login** to generate a JWT token.
 - Document Management:
-    - **Upload** a document for summarization.
+    - **Su** a document for summarization.
     - **Retrieve** the summarized content of an uploaded document.
 - Uses **SQLite** as the database.
 - OpenAI API integration for text summarization.
@@ -50,14 +50,6 @@ OPEN_AI_API_KEY=sk-****
 - **JWT_EXPIRE_IN**: JWT token expiration time.
 - **OPEN_AI_API_KEY**: OpenAI API key for text summarization.
 
-### **4. Run Migrations (If Applicable)**
-
-Ensure the SQLite database is initialized and migrations are run (if necessary).
-
-```bash
-npx prisma migrate dev --name init
-```
-
 ---
 
 ## **Running the Application**
@@ -79,7 +71,7 @@ npm run start:prod
 
 ### **Authentication**
 #### **1. Register**
-**POST** `/auth/register`  
+**POST** `/api/v1/auth/register`  
 Register a new user.
 
 **Request Body**:
@@ -91,7 +83,7 @@ Register a new user.
 ```
 
 #### **2. Login**
-**POST** `/auth/login`  
+**POST** `/api/v1/auth/login`  
 Log in to get a JWT token.
 
 **Request Body**:
@@ -113,7 +105,7 @@ Log in to get a JWT token.
 
 ### **Document Management**
 #### **1. Upload File**
-**POST** `/documents/upload`  
+**POST** `/api/v1/summarize`  
 Upload a document for summarization.  
 **Headers**:  
 `Authorization: Bearer <JWT_TOKEN>`
@@ -122,7 +114,7 @@ Upload a document for summarization.
 - **file**: The document file (PDF, DOCX, or TXT).
 
 #### **2. Get Summary**
-**GET** `/documents/summary`  
+**GET** `/api/v1/summarize`  
 Retrieve the summary of the uploaded document.  
 **Headers**:  
 `Authorization: Bearer <JWT_TOKEN>`

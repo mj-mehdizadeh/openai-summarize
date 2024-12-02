@@ -3,7 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AuthModule } from './auth/auth.module';
+import { SummarizeModule } from './summarize/summarize.module';
 import { UsersModule } from './users/users.module';
+import { FileHelperModule } from './file-helper/file-helper.module';
 
 @Global()
 @Module({
@@ -24,6 +26,8 @@ import { UsersModule } from './users/users.module';
     }),
     UsersModule,
     AuthModule,
+    SummarizeModule,
+    FileHelperModule,
   ],
 })
 export class AppModule {}

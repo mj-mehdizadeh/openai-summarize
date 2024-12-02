@@ -20,6 +20,7 @@ async function bootstrap() {
     .setTitle('OpenAI summarization')
     .setDescription('The API description')
     .setVersion('1.0')
+    .addBearerAuth(undefined, 'auth')
     .addTag('hashthink')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);

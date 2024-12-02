@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import OpenAI from 'openai';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const tokenizer = require('gpt-3-encoder');
 
 @Injectable()
 export class OpenaiService {

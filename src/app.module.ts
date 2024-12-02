@@ -3,9 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AuthModule } from './auth/auth.module';
+import { FileHelperModule } from './file-helper/file-helper.module';
 import { SummarizeModule } from './summarize/summarize.module';
 import { UsersModule } from './users/users.module';
-import { FileHelperModule } from './file-helper/file-helper.module';
 
 @Global()
 @Module({
@@ -14,7 +14,7 @@ import { FileHelperModule } from './file-helper/file-helper.module';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
+      useFactory: () => {
         return {
           type: 'sqlite',
           database: './data/db.sql',

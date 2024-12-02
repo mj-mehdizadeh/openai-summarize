@@ -1,6 +1,7 @@
 import 'dotenv/config';
 
 import { VersioningType } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { json, urlencoded } from 'express';
@@ -16,6 +17,8 @@ async function bootstrap() {
     type: VersioningType.URI,
   });
 
+  const configService = app.get(ConfigService);
+
   const config = new DocumentBuilder()
     .setTitle('OpenAI summarization')
     .setDescription('The API description')
@@ -26,11 +29,12 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/swagger-docs', app, documentFactory);
 
-  await app.listen(3000);
+  const port = configService.get('PORT') || 3000;
+  await app.listen(port);
 
   console.info('+=============================================+');
   console.info('----------------------------------------------------');
-  console.info(`| GraphQL API URL:       http://localhost:3000     |`);
+  console.info(`| GraphQL API URL:       http://localhost:${port}     |`);
   console.info('----------------------------------------------------');
 }
 bootstrap();

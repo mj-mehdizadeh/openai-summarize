@@ -1,99 +1,159 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+Here is a **README.md** file for your Nest.js test application:
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+---
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# **Document Summarization API**
 
-## Description
+This is a test application built with **Nest.js** that allows users to upload documents (PDF, DOCX, or TXT) and retrieve their summarized content. The application includes basic user authentication with login and registration functionality.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## **Features**
 
+- User Authentication:
+    - **Register** a new user.
+    - **Login** to generate a JWT token.
+- Document Management:
+    - **Upload** a document for summarization.
+    - **Retrieve** the summarized content of an uploaded document.
+- Uses **SQLite** as the database.
+- OpenAI API integration for text summarization.
+
+---
+
+## **Setup Instructions**
+
+### **1. Clone the Repository**
 ```bash
-$ npm install
+git clone <repository-url>
+cd <repository-directory>
 ```
 
-## Compile and run the project
-
+### **2. Install Dependencies**
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
+### **3. Configure the Environment**
 
-```bash
-# unit tests
-$ npm run test
+Create a `.env` file in the root directory of the project and add the following environment variables:
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```dotenv
+PORT=3001
+JWT_SECRET=secret
+JWT_EXPIRE_IN=15m
+OPEN_AI_API_KEY=sk-****
 ```
 
-## Deployment
+- **PORT**: Port where the server will run.
+- **JWT_SECRET**: Secret key for JWT authentication.
+- **JWT_EXPIRE_IN**: JWT token expiration time.
+- **OPEN_AI_API_KEY**: OpenAI API key for text summarization.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+### **4. Run Migrations (If Applicable)**
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Ensure the SQLite database is initialized and migrations are run (if necessary).
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+npx prisma migrate dev --name init
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+## **Running the Application**
 
-Check out a few resources that may come in handy when working with NestJS:
+### **Development Mode**
+```bash
+npm run start:dev
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### **Production Mode**
+```bash
+npm run build
+npm run start:prod
+```
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## **API Endpoints**
 
-## Stay in touch
+### **Authentication**
+#### **1. Register**
+**POST** `/auth/register`  
+Register a new user.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+**Request Body**:
+```json
+{
+  "username": "example_user",
+  "password": "example_password"
+}
+```
 
-## License
+#### **2. Login**
+**POST** `/auth/login`  
+Log in to get a JWT token.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+**Request Body**:
+```json
+{
+  "username": "example_user",
+  "password": "example_password"
+}
+```
+
+**Response**:
+```json
+{
+  "accessToken": "your_jwt_token"
+}
+```
+
+---
+
+### **Document Management**
+#### **1. Upload File**
+**POST** `/documents/upload`  
+Upload a document for summarization.  
+**Headers**:  
+`Authorization: Bearer <JWT_TOKEN>`
+
+**Form Data**:
+- **file**: The document file (PDF, DOCX, or TXT).
+
+#### **2. Get Summary**
+**GET** `/documents/summary`  
+Retrieve the summary of the uploaded document.  
+**Headers**:  
+`Authorization: Bearer <JWT_TOKEN>`
+
+---
+
+## **Testing**
+
+To test the application:
+1. Register a new user.
+2. Log in to obtain a JWT token.
+3. Use the token to upload a document.
+4. Retrieve the summary of the uploaded document.
+
+---
+
+## **Technologies Used**
+
+- **Nest.js**: Backend framework.
+- **SQLite**: Lightweight database.
+- **JWT**: Authentication mechanism.
+- **Multer**: File upload handling.
+- **OpenAI API**: For text summarization.
+- **Prisma**: Database ORM.
+
+---
+
+## **License**
+
+This project is licensed under the MIT License.
+
+--- 
+
+Let me know if you want to add specific examples or refine this further!

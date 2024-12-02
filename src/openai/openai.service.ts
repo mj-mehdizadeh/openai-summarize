@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import OpenAI from 'openai';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const tokenizer = require('gpt-3-encoder');
 
 @Injectable()
 export class OpenaiService {
@@ -10,22 +12,18 @@ export class OpenaiService {
   }
 
   async summarize(message: string) {
-    return this.openai.chat.completions.create({
-      model: 'gpt-4o',
+    const response = await this.openai.chat.completions.create({
+      model: 'gpt-4',
       messages: [
         {
           role: 'system',
           content:
             'You will be provided with document, and your task is to summarize it.',
         },
-        {
-          role: 'user',
-          content: message,
-        },
+        { role: 'user', content: message },
       ],
-      temperature: 0.7,
-      max_tokens: 500,
-      top_p: 1,
     });
+
+    return response.choices[0].message.content;
   }
 }

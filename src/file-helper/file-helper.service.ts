@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import tokenizer from 'gpt-3-encoder';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mammoth = require('mammoth');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -8,8 +9,33 @@ const pdfParse = require('pdf-parse'); // For PDFs
 
 @Injectable()
 export class FileHelperService {
+  async processFileToChunks(file: Express.Multer.File) {
+    const content = await this.readFile(file);
+
+    return this.splitIntoChunks(content.text);
+  }
+
+  // Function to split text into manageable chunks
+  splitIntoChunks(text: string, maxTokens = 3000) {
+    const chunks = [];
+    let currentChunk = '';
+
+    for (const sentence of text.split('.')) {
+      const tokens = tokenizer.encode(currentChunk + sentence);
+      if (tokens.length > maxTokens) {
+        chunks.push(currentChunk.trim());
+        currentChunk = sentence + '.';
+      } else {
+        currentChunk += sentence + '.';
+      }
+    }
+
+    if (currentChunk) chunks.push(currentChunk.trim());
+    return chunks;
+  }
+
   // Function to detect file type and extract text
-  async processFile(file: Express.Multer.File) {
+  async readFile(file: Express.Multer.File) {
     const mimeType = file.mimetype;
 
     switch (mimeType) {

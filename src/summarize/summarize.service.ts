@@ -35,4 +35,13 @@ export class SummarizeService {
     await this.model.insert(record);
     return record;
   }
+
+  async findAll(userId: number) {
+    const [data, total] = await this.model.findAndCount({
+      where: { userId },
+      order: { id: 'DESC' },
+    });
+
+    return { data, total };
+  }
 }

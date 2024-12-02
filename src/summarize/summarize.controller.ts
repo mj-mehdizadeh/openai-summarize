@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   MaxFileSizeValidator,
   ParseFilePipe,
   Post,
@@ -38,5 +39,10 @@ export class SummarizeController {
     @AuthenticatedUser() user,
   ) {
     return this.summarizeService.summarize(file, user.id);
+  }
+
+  @Get()
+  summarize(@AuthenticatedUser() user) {
+    return this.summarizeService.findAll(user.id);
   }
 }

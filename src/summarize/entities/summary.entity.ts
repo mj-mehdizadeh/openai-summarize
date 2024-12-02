@@ -6,15 +6,13 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { SummarizeStatus } from '../summarize.type';
-
 @Entity()
 export class SummaryEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ enum: SummarizeStatus, default: SummarizeStatus.NEW })
-  status: SummarizeStatus;
+  // @Column({ enum: SummarizeStatus, default: SummarizeStatus.NEW })
+  // status: SummarizeStatus;
 
   // @Column({ generated: 'uuid', type: 'uuid' })
   // document: string;

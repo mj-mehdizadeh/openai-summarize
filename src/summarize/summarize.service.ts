@@ -30,9 +30,9 @@ export class SummarizeService {
       summaries.join(' '),
     );
 
-    return await this.model.insert({
-      userId,
-      result: finalSummary,
-    });
+    const record = this.model.create({ userId, result: finalSummary });
+
+    await this.model.insert(record);
+    return record;
   }
 }

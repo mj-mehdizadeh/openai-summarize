@@ -12,6 +12,8 @@ export class OpenaiService {
   }
 
   async summarize(message: string) {
+    console.log('#> summarize', message);
+
     const response = await this.openai.chat.completions.create({
       model: 'gpt-4',
       messages: [
@@ -24,6 +26,9 @@ export class OpenaiService {
       ],
     });
 
-    return response.choices[0].message.content;
+    const content = response.choices[0].message.content;
+    console.log('#> summarize response', content);
+
+    return content;
   }
 }

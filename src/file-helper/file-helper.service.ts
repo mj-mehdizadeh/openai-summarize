@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import tokenizer from 'gpt-3-encoder';
+import { BadRequestException, Injectable } from '@nestjs/common';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mammoth = require('mammoth');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { encode } = require('gpt-3-encoder');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const WordExtractor = require('word-extractor'); // For DOC files
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -17,11 +18,13 @@ export class FileHelperService {
 
   // Function to split text into manageable chunks
   splitIntoChunks(text: string, maxTokens = 3000) {
+    console.log('#> splitIntoChunks...');
+
     const chunks = [];
     let currentChunk = '';
 
     for (const sentence of text.split('.')) {
-      const tokens = tokenizer.encode(currentChunk + sentence);
+      const tokens = encode(currentChunk + sentence);
       if (tokens.length > maxTokens) {
         chunks.push(currentChunk.trim());
         currentChunk = sentence + '.';
@@ -31,6 +34,7 @@ export class FileHelperService {
     }
 
     if (currentChunk) chunks.push(currentChunk.trim());
+    console.log('#> splitIntoChunks', chunks.length);
     return chunks;
   }
 
@@ -46,9 +50,10 @@ export class FileHelperService {
       case 'application/pdf': // PDF
         return await this.processPdf(file);
       case 'text/plain': // TXT
+      case 'application/octet-stream': // TXT
         return await this.processTxt(file);
       default:
-        throw new Error(`Unsupported file type: ${mimeType}`);
+        throw new BadRequestException(`Unsupported file type: ${mimeType}`);
     }
   }
 

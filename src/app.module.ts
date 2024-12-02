@@ -15,7 +15,7 @@ import { UsersModule } from './users/users.module';
       useFactory: (config: ConfigService) => {
         return {
           type: 'sqlite',
-          database: './db.sql',
+          database: './data/db.sql',
           entities: [__dirname + '/**/*.entity{.ts,.js}'],
           synchronize: true,
           logging: true,
